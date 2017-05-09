@@ -6,7 +6,6 @@
 
 <script>
 import Layer from './components/Layer'
-
 export default {
   name: 'app',
   components: {

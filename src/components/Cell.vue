@@ -1,9 +1,10 @@
 <template>
-	
+	<VFigure v-if="figure" :payload="figure"></VFigure>
 </template>
-
 <script>
+
 import Konva from 'konva'
+import Figure from './Figure'
 
 export default{
 	name: 'cell',
@@ -18,29 +19,43 @@ export default{
 				});
 		this.instance.on('mousedown', () =>  {
 	      	if(this.attach){
-				this.instance.fill('#6fa0ce'); 
-				this.instance.draw()	      	
+	      		const PAWN = 'PAWN'
+				this.addFigure(PAWN);
 	      	}
 	    });
-	    this.instance.on('mouseup', () => {
-	    	if(this.attach){
-	    		this.instance.fill(this.color);
-	    		this.instance.draw()
-	    	}
-	    });
+
+
 		this.$parent.$on('ROOT_LAYER_CREATE', (layer, stage) => {
 			this.layer = layer;
 			this.layer.add(this.instance);
 			this.layer.draw();
 			this.attach = true;
+			this.$emit('CREATE_CELL', this.instance)
 		});
+
 	},
 	data(){
 		return {
 			attach: false, // attach root layer
+			figure: null,
 			layer: null,
 			instance: null
 		}
+	},
+	methods:{
+		addFigure(type){
+			if(this.attach)
+				this.figure = {
+					x: this.x,
+					y: this.y,
+					size: this.size,
+					type: type,
+					layer: this.layer
+				}
+		}
+	},
+	components:{
+		'VFigure': Figure
 	}
 }
 </script>

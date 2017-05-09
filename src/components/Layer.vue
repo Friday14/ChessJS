@@ -2,11 +2,13 @@
 	<div>
 		<div style=" margin-left:250px"id="stage">
 			<div v-for="y in cell">
-				<Cell v-for="x in cell"
+				<Cell 
+					ref="cells"
+					v-for="x in cell"
 					:key="x + y"
 					:stage="stage" 
-					:x="(x - 1) * getSize()"
-					:y="(y - 1) * getSize()"
+					:x="x * getSize()"
+					:y="y * getSize()"
 					:color="getColor(x,y)"
 					:size="getSize()"/>
 				</Cell>
@@ -32,6 +34,7 @@ export default {
 		this.stage.add(this.layer);
 		console.log('mounted')
 		this.$emit('ROOT_LAYER_CREATE', this.layer, this.stage)
+		this.loadFigures()
 	},
 	data () {
 		return {
@@ -49,6 +52,16 @@ export default {
 		},
 		getSize(){
 			return window.innerWidth/ 24;
+		},
+		loadFigures(){
+			/* Simple Load Pawn Figures */
+			this.$refs.cells.slice(8,17).map( (item) => item.addFigure('PAWN') )
+
+			let count = this.$refs.cells.length;
+
+			this.$refs.cells.slice(count - 18 - 9, count - 18).map( (item) => item.addFigure('PAWN') )
+			
+			console.log(this.$refs.cells)
 		}
 	},
 	components:{
