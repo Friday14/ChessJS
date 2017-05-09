@@ -1,9 +1,27 @@
 <template>
-	<div></div>
+
 </template>
 
 <script>
+	import Konva from 'konva'
 	export default{
-		// @TODO This component for generate image Figure, and load the rules
+		props: ['x','y','size','color','index'],
+		mounted(){
+			// @ TODO Дописать
+			// this.instance = new Konva.i
+			this.$parent.$on('ROOT_LAYER_CREATE', (layer) => {
+				this.layer = layer;
+				this.layer.add(this.instance);
+				this.layer.draw();
+				this.attach = true;
+			})
+		},
+		data(){
+			return {
+				instance: null,
+				layer: null,
+				attach: false,
+			}
+		}
 	}
 </script>

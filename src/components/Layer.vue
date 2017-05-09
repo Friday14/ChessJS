@@ -45,7 +45,7 @@ export default {
 	},
 	methods:{
 		getColor(x, y){
-			return ( (x % 2) == (y % 2 == 1) ) ? 'silver' : 'black';
+			return ( (x % 2) == (y % 2) ) ? 'silver' : 'black';
 		},
 		getSize(){
 			return window.innerWidth/ 24;

@@ -1,6 +1,7 @@
 <template>
 	
 </template>
+
 <script>
 import Konva from 'konva'
 
@@ -32,7 +33,7 @@ export default{
 			this.layer.add(this.instance);
 			this.layer.draw();
 			this.attach = true;
-		})
+		});
 	},
 	data(){
 		return {
